@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="#" style="display:block">
+    <br>
+    <button data-cat-button>More cats!</button>
+    <br>
+    <div>Or search for something else:</div>
+    <input type="text" data-search-text>
+    <button data-search-button>Search</button>
+    <script>
+        const img = document.querySelector('img');
+        const catButton = document.querySelector('[data-cat-button]')
+        const searchButton = document.querySelector('[data-search-button')
+        const searchInput = document.querySelector('[data-search-text')
+
+        function giveMeCat() {
+          fetch('https://api.giphy.com/v1/gifs/translate?api_key=dvS423pJg2AmQ1zvJnZZpgtQdaB3DUc6&s=cats', {mode: 'cors'})
+          .then(response => response.json())
+          .then(catGif => img.src = catGif.data.images.original.url)
+        }
+
+        function searchGifs() {
+          const searchText = searchInput.value
+          if (searchText === null || searchText === '') return
+          fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dvS423pJg2AmQ1zvJnZZpgtQdaB3DUc6&s=${searchText}`, {mode: 'cors'})
+          .then(response => response.json())
+          .then(searchGif => img.src = searchGif.data.images.original.url)
+        }
+
+        catButton.addEventListener("click", giveMeCat)
+        searchButton.addEventListener("click", searchGifs)
+
+        giveMeCat();
+
+        
+    </script>
+</body>
+</html>
